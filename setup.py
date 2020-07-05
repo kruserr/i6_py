@@ -16,23 +16,24 @@ try:
 except FileNotFoundError:
     VERSION = 'test'
 
-deps = [
-    {
-        'name': 'aiocheck',
-        'url': 'https://github.com/kruserr/aiocheck',
-        'tag': '',
-    },
-]
+# To whenever PYPI allows direct references for dependencies
+# deps = [
+#     {
+#         'name': 'aiocheck',
+#         'url': 'https://github.com/kruserr/aiocheck',
+#         'tag': '',
+#     },
+# ]
 
-for i in range(len(deps)):
-    try:
-        if (deps[i]['tag'] is None) or (len(deps[i]['tag']) == 0):
-            raise KeyError()
-    except KeyError:
-        request = urllib.request.urlopen(f"{deps[i]['url']}/releases/latest").geturl()
-        deps[i]['tag'] = request.split('/')[::-1][0]
+# for i in range(len(deps)):
+#     try:
+#         if (deps[i]['tag'] is None) or (len(deps[i]['tag']) == 0):
+#             raise KeyError()
+#     except KeyError:
+#         request = urllib.request.urlopen(f"{deps[i]['url']}/releases/latest").geturl()
+#         deps[i]['tag'] = request.split('/')[::-1][0]
     
-    deps[i] = f"{deps[i]['name']} @ git+{deps[i]['url']}@{deps[i]['tag']}"
+#     deps[i] = f"{deps[i]['name']} @ git+{deps[i]['url']}@{deps[i]['tag']}"
 
 setuptools.setup(
     name='i6',
@@ -54,7 +55,9 @@ setuptools.setup(
     package_dir={
         '': 'src',
     },
-    install_requires=deps,
+    install_requires=[
+        'aiocheck',
+    ],
     entry_points = {
         'console_scripts': ['i6=i6.__main__:main'],
     },
