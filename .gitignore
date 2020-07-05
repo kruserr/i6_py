@@ -1,0 +1,30 @@
+# Editors
+.vs/*
+.atom/*
+.idea/*
+.vscode/*
+!*tasks.json
+!*launch.json
+
+# Temp files
+*.pyc
+*.sec
+*venv*
+*.class
+*.~lock
+build/*
+Build/*
+bin-int/*
+*.egg-info
+*secret.ini
+*__pycache__*
+dist/*
+.pytest_cache
+.tox
+htmlcov/*
+.coverage*
+coverage.xml
+
+# Custom
+i6.spec
+command_line.spec

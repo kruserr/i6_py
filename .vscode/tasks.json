@@ -1,0 +1,139 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "echo Built",
+            "presentation": {
+                "reveal": "silent",
+                "clear": false,
+                "showReuseMessage": true,
+            },
+            "group": "build",
+            "dependsOn":["Build Executable", "wsl pyinstaller", "Build PyPI"],
+            "problemMatcher": [],
+        },
+        {
+            "label": "Build PyPI",
+            "type": "shell",
+            "command": "python setup.py sdist bdist_wheel",
+            "presentation": {
+                "reveal": "silent",
+                "clear": true,
+                "showReuseMessage": false,
+            },
+            "group": "build",
+            "problemMatcher": [],
+        },
+        {
+            "label": "Build Executable",
+            "type": "shell",
+            "command": "pyinstaller --onefile --name i6 --distpath bin src/i6/cli/main.py",
+            "presentation": {
+                "reveal": "silent",
+                "clear": true,
+                "showReuseMessage": false,
+            },
+            "group": "build",
+            "problemMatcher": [],
+        },
+        {
+            "label": "wsl pyinstaller",
+            "type": "shell",
+            "command": "wsl ~/.local/bin/pyinstaller --onefile --name i6 --distpath bin src/i6/cli/main.py",
+            "presentation": {
+                "reveal": "never",
+                "clear": true,
+                "showReuseMessage": false,
+            },
+            "group": "build",
+            "problemMatcher": [],
+        },
+        {
+            "label": "Publish to PyPI",
+            "type": "shell",
+            "command": "python -m twine upload dist/*",
+            "presentation": {
+                "reveal": "always",
+                "clear": true,
+                "showReuseMessage": true,
+                "focus": true,
+            },
+            "group": "build",
+            "problemMatcher": [],
+        },
+        {
+            "label": "Install",
+            "type": "shell",
+            "command": "python -m pip install -e .",
+            "presentation": {
+                "reveal": "silent",
+                "clear": true,
+                "showReuseMessage": true,
+            },
+            "problemMatcher": [],
+        },
+        {
+            "label": "Update Wiki",
+            "type": "shell",
+            "command": "echo Wiki Updated",
+            "presentation": {
+                "reveal": "silent",
+                "clear": false,
+                "showReuseMessage": true,
+            },
+            "dependsOn":["git fetch wiki", "git subtree pull wiki", "git subtree push wiki"],
+            "dependsOrder": "sequence",
+            "problemMatcher": [],
+        },
+        {
+            "label": "git fetch wiki",
+            "type": "shell",
+            "command": "git fetch https://github.com/kruserr/i6.wiki.git master",
+            "presentation": {
+                "reveal": "silent",
+                "clear": true,
+                "showReuseMessage": false,
+            },
+            "problemMatcher": [],
+        },
+        {
+            "label": "git subtree pull wiki",
+            "type": "shell",
+            "command": "git subtree pull --prefix wiki https://github.com/kruserr/i6.wiki.git master --squash",
+            "presentation": {
+                "reveal": "silent",
+                "clear": false,
+                "showReuseMessage": false,
+            },
+            "problemMatcher": [],
+        },
+        {
+            "label": "git subtree push wiki",
+            "type": "shell",
+            "command": "git subtree push --prefix wiki https://github.com/kruserr/i6.wiki.git master",
+            "presentation": {
+                "reveal": "silent",
+                "clear": false,
+                "showReuseMessage": false,
+            },
+            "problemMatcher": [],
+        },
+        {
+            "label": "Test",
+            "type": "shell",
+            "command": "tox",
+            "presentation": {
+                "reveal": "silent",
+                "clear": false,
+                "showReuseMessage": true,
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+        },
+    ]
+}
