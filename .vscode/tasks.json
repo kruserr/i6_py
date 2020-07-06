@@ -29,7 +29,7 @@
         {
             "label": "Build Executable",
             "type": "shell",
-            "command": "pyinstaller --onefile --name i6 --distpath bin src/i6/cli/main.py",
+            "command": "pyinstaller --onefile --hidden-import=pkg_resources.py2_warn --name i6 --distpath bin src/i6/cli/main.py",
             "presentation": {
                 "reveal": "silent",
                 "clear": true,
@@ -41,7 +41,7 @@
         {
             "label": "wsl pyinstaller",
             "type": "shell",
-            "command": "wsl ~/.local/bin/pyinstaller --onefile --name i6 --distpath bin src/i6/cli/main.py",
+            "command": "wsl ~/.local/bin/pyinstaller --onefile --hidden-import=pkg_resources.py2_warn --name i6 --distpath bin src/i6/cli/main.py",
             "presentation": {
                 "reveal": "never",
                 "clear": true,
