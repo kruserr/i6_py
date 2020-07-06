@@ -1,5 +1,5 @@
-from .. import errors
-from ..log import log
+from i6 import errors
+from i6.log import log
 
 import docker
 

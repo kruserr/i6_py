@@ -1,4 +1,4 @@
-from .Result import Result
+from i6.http.Result import Result
 
 import urllib.request
 

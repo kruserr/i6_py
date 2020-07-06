@@ -1,6 +1,6 @@
-from . import ContainerCommand
-from ..log import log
-from ..util import util
+from i6.container import ContainerCommand
+from i6.log import log
+from i6.util import util
 
 import docker
 

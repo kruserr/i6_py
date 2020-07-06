@@ -1,4 +1,4 @@
-from ..shell import shell
+from i6.shell import shell
 
 import pyftpdlib.authorizers
 import pyftpdlib.handlers

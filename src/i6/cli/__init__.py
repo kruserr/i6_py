@@ -1,4 +1,3 @@
-import i6
 from i6.cli.main import main
 
 import os

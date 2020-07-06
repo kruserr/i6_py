@@ -1,4 +1,4 @@
-from ..util import util
+from i6.util import util
 
 import sys
 import socket

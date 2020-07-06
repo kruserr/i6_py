@@ -1,5 +1,5 @@
-from ..shell import shell
-from ..util import util
+from i6.shell import shell
+from i6.util import util
 
 from setuptools._vendor.packaging import version
 
