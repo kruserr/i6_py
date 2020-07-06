@@ -8,13 +8,13 @@ def test_cli():
     i6.cli(menu=False).run()
 
 def test_cli_subprocess_direct():
-    subprocess.run([sys.executable, 'src/i6/cli/main.py'], timeout=1)
+    subprocess.run([sys.executable, 'src/i6/cli/main.py'], timeout=5)
 
 def test_cli_subprocess_path():
-    subprocess.run(['i6'], timeout=1)
+    subprocess.run(['i6'], timeout=5)
 
 def test_cli_subprocess_python_module():
-    subprocess.run([sys.executable, '-m', 'i6'], timeout=1)
+    subprocess.run([sys.executable, '-m', 'i6'], timeout=5)
 
 def test_cli_subprocess_bin():
     subprocess.run(['bin/i6'], timeout=5)
