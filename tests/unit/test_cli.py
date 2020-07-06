@@ -1,7 +1,5 @@
 import i6
 
-import os
-import pytest
 import subprocess
 
 
