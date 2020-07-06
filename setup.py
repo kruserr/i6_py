@@ -57,6 +57,10 @@ setuptools.setup(
     },
     install_requires=[
         'aiocheck',
+        'docker',
+        'pyftpdlib',
+        'SQLAlchemy',
+        'marshmallow',
     ],
     entry_points = {
         'console_scripts': ['i6=i6.__main__:main'],
