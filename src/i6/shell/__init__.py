@@ -152,6 +152,21 @@ class shell():
             with open(path, file_mode) as f:
                 f.write(text)
 
+    def cp(src, dst):
+        """
+            Copy a file or folder from src to dst.
+
+            Example:
+            ```
+            i6.shell.cp('test.txt', 'test2.txt')
+            ```
+        """
+
+        if os.path.isfile(src):
+            shutil.copy(src, dst)
+        elif os.path.isdir(src):
+            shutil.copytree(src, dst)
+
     def exec(command):
         """
             Execute a command using subprocess run and return result as string.
@@ -194,7 +209,7 @@ class shell():
 
     def symlink(src, dst):
         """
-            Returns path to executable by the name provided.
+            Create a symlink, from src to dst.
 
             Example:
             ```
