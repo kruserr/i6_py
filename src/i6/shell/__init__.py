@@ -1,6 +1,7 @@
 import os
 import imp
 import shutil
+import getpass
 import platform
 import subprocess
 
@@ -214,7 +215,7 @@ class shell():
             ```
         """
 
-        return os.getlogin()
+        return getpass.getuser()
 
     def uname():
         """
