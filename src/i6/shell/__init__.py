@@ -163,7 +163,7 @@ class shell():
         """
 
         if os.path.isfile(src):
-            shutil.copy(src, dst)
+            shutil.copy2(src, dst)
         elif os.path.isdir(src):
             shutil.copytree(src, dst)
 
