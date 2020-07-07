@@ -56,7 +56,6 @@ setuptools.setup(
         '': 'src',
     },
     install_requires=[
-        'aiocheck',
         'docker',
         'pyftpdlib',
         'SQLAlchemy',
