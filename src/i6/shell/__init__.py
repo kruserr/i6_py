@@ -51,7 +51,7 @@ class shell():
         """
 
         if path is None:
-            path = os.path.expanduser('~')
+            path = shell.home()
 
         os.chdir(path)
     
@@ -215,6 +215,18 @@ class shell():
         """
 
         return getpass.getuser()
+
+    def home():
+        """
+            Returns currently logged in users home folder.
+
+            Example:
+            ```
+            print(i6.shell.home())
+            ```
+        """
+
+        return os.path.expanduser('~')
 
     def uname():
         """
