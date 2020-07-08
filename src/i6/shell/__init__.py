@@ -19,6 +19,7 @@ class shell():
         i6.shell.rm('dir')
         print(i6.shell.cat('test.txt'))
         i6.shell.echo('test.txt', '1234', append=False)
+        i6.shell.cp('src.txt', 'dst.txt')
         print(i6.shell.exists('dir'))
         print(i6.shell.which('ping'))
         print(i6.shell.user())
@@ -158,7 +159,7 @@ class shell():
 
             Example:
             ```
-            i6.shell.cp('test.txt', 'test2.txt')
+            i6.shell.cp('src.txt', 'dst.txt')
             ```
         """
 
