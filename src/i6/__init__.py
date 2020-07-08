@@ -43,3 +43,5 @@ from i6.util import util
 from i6.shell import shell
 from i6.crypto import crypto
 from i6.container import container
+from i6.classes.Base import Base
+from i6.classes.List import List
