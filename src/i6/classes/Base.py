@@ -1,4 +1,5 @@
 import json
+import pickle
 
 
 class Base():
@@ -8,45 +9,34 @@ class Base():
         Example:
         ```
         class Person(i6.Base):
-            def __init__(self, name):
-                super().__init__()
-                self.name = name
+            def __init__(self, first_name, last_name):
+                self.first_name = first_name
+                self.last_name = last_name
 
-        print(Person('John'))
+        print(Person('John', 'Doe'))
         '''
-        {
-            'id': 1,
-            'name': 'John',
-        }
+        {'first_name': 'John', 'last_name': 'Doe'}
         '''
         ```
     """
-    
-    __ID_COUNTER = 0
 
-    def __init__(self):
-        self.__id = Base.__auto_id()
+    def __repr__(self):
+        return str(self.get_dict())
 
-    def __str__(self):
-        return json.dumps(self.get_json(), indent=4, default=str)
+    def get_dict(self):
+        return self.__dict__
 
-    def get_json(self):
-        temp_dict = self.__dict__.copy()
-        temp_dict['id'] = temp_dict.pop(f"_{__class__.__name__}__id")
-        return temp_dict
+    def json(self):
+        return json.dumps(self.get_dict(), indent=4, default=str)
+
+    def dumps(self):
+        return pickle.dumps(self)
+
+    def loads(self, data):
+        self.__dict__ = pickle.loads(data).__dict__
 
     def __eq__(self, other):
-        if other is None:
-            return False
-        return self.get_id() == other.get_id()
+        return self.__dict__ == other.__dict__
 
     def __ne__(self, other):
         return not self.__eq__(other)
-
-    def __auto_id():
-        Base.__ID_COUNTER += 1
-        return Base.__ID_COUNTER
-
-    def get_id(self):
-        return self.__id
-    

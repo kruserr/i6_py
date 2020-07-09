@@ -1,7 +1,8 @@
 import json
+import pickle
 
 
-class List():
+class List(list):
     """
         i6 Standard list class
 
@@ -9,7 +10,6 @@ class List():
         ```
         class Person(i6.Base):
             def __init__(self, name):
-                super().__init__()
                 self.name = name
 
         p1 = Person('John1')
@@ -18,74 +18,91 @@ class List():
 
         print(persons)
         '''
-        [
-            {
-                'name': 'John1',
-                'id': 1
-            },
-            {
-                'name': 'John2',
-                'id': 2
-            }
-        ]
+        [{'name': 'John1'}, {'name': 'John2'}]
         '''
         ```
     """
     
     def __init__(self, *argv):
-        self.__items = []
-        for arg in argv:
-            self.__items.append(arg)
+        super().__init__(argv)
 
-        self.__index = -1
+    def json(self):
+        """
+            Returns a valid json representation of the list.
 
-    def __str__(self):
-        return json.dumps(self.get_json(), indent=4, default=str)
+            Example:
+            ```
+            class Person(i6.Base):
+                def __init__(self, name):
+                    self.name = name
+            
+            p1 = Person('John1')
+            p2 = Person('John2')
+            persons = i6.List(p1, p2)
 
-    def get_json(self):
-        result = []
-        for item in self.__items:
-            result.append(item.get_json())
-        return result
-
-    def __eq__(self, other):
-        if other is None:
-            return False
-
-        len_self = len(self)
-        len_other = len(other)
-
-        if len_self != len_other:
-            return False
+            print(persons.json())
+            '''
+            [
+                {
+                    "name": "John1"
+                },
+                {
+                    "name": "John2"
+                }
+            ]
+            '''
+            ```
+        """
         
-        for i in range(len_self):
-            if self[i] != other[i]:
-                return False
-        
-        return True
+        temp_items = []
+        for item in self:
+            temp_items.append(item.get_dict())
+        return json.dumps(temp_items, indent=4, default=str)
 
-    def __ne__(self, other):
-        return not self.__eq__(other)
+    def dumps(self):
+        """
+            Returns a binary serialization of the list.
 
-    def __len__(self):
-        return len(self.__items)
+            Example:
+            ```
+            class Person(i6.Base):
+                def __init__(self, name):
+                    self.name = name
+            
+            p1 = Person('John1')
+            p2 = Person('John2')
+            persons = i6.List(p1, p2)
 
-    def __getitem__(self, key):
-        return self.__items[key]
+            with open('persons.pkl', 'wb') as f:
+                f.write(persons.dumps())
+            ```
+        """
 
-    def __iter__(self):
-        return ListIterator(self)
+        return pickle.dumps(self)
 
-class ListIterator():
-    def __init__(self, i6_list):
-        self.__i6_list = i6_list
-        self.__index = -1
-    
-    def __next__(self):
-        self.__index += 1
+    def loads(self, data):
+        """
+            Deserialize a valid binary serialization of the list.
 
-        if self.__index == len(self.__i6_list):
-            raise StopIteration
-        
-        return self.__i6_list[self.__index]
+            Example:
+            ```
+            class Person(i6.Base):
+                def __init__(self, name):
+                    self.name = name
+
+            persons = i6.List()
+
+            with open('persons.pkl', 'rb') as f:
+                persons.loads(f.read())
+
+            print(persons)
+            '''
+            [{'name': 'John1'}, {'name': 'John2'}]
+            '''
+            ```
+        """
+
+        self.clear()
+        for item in pickle.loads(data):
+            self.append(item)
     
