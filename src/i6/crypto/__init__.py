@@ -1,37 +1,11 @@
-import string
-import secrets
+"""
+    Standardized cryptography tools.
 
+    Example:
+    ```
+    print(i6.crypto.password())
+    ```
+"""
 
-class crypto():
-    """
-        Class for standardized cryptography tools.
-
-        Example:
-        ```
-        i6.crypto.password()
-        ```
-    """
-
-    def password(length = 32):
-        """
-            Generate a random password
-
-            Example:
-            ```
-            i6.crypto.password()
-            ```
-        """
-
-        if (length < 8) or (not isinstance(length, int)):
-            raise ValueError('Password length must be larger than 8')
-
-        alphabet = string.ascii_letters + string.digits
-        while True:
-            password = ''.join(secrets.choice(alphabet) for i in range(length))
-            if (any(c.islower() for c in password)
-                    and any(c.isupper() for c in password)
-                    and sum(c.isdigit() for c in password) >= 3):
-                break
-        
-        return password
-        
+from i6.crypto.functions import password, sha256, uuid, derive_key, verify_key
+from i6.crypto.AES import AES
