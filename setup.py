@@ -60,6 +60,7 @@ setuptools.setup(
         'pyftpdlib',
         'SQLAlchemy',
         'marshmallow',
+        'cryptography',
     ],
     entry_points = {
         'console_scripts': ['i6=i6.__main__:main'],
