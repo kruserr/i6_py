@@ -56,7 +56,7 @@ class List(list):
         
         temp_items = []
         for item in self:
-            temp_items.append(item.get_dict())
+            temp_items.append(item.__dict__)
         return json.dumps(temp_items, indent=4, default=str)
 
     def dumps(self):

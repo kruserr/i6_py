@@ -9,34 +9,84 @@ class Base():
         Example:
         ```
         class Person(i6.Base):
-            def __init__(self, first_name, last_name):
-                self.first_name = first_name
-                self.last_name = last_name
+            def __init__(self, name):
+                self.name = name
 
-        print(Person('John', 'Doe'))
+        print(Person('John'))
         '''
-        {'first_name': 'John', 'last_name': 'Doe'}
+        {'name': 'John'}
         '''
         ```
     """
 
     def __repr__(self):
-        return str(self.get_dict())
-
-    def get_dict(self):
-        return self.__dict__
-
-    def json(self):
-        return json.dumps(self.get_dict(), indent=4, default=str)
-
-    def dumps(self):
-        return pickle.dumps(self)
-
-    def loads(self, data):
-        self.__dict__ = pickle.loads(data).__dict__
+        return str(self.__dict__)
 
     def __eq__(self, other):
         return self.__dict__ == other.__dict__
 
     def __ne__(self, other):
         return not self.__eq__(other)
+
+    def json(self):
+        """
+            Returns a valid json representation of the class.
+
+            Example:
+            ```
+            class Person(i6.Base):
+                def __init__(self, name):
+                    self.name = name
+
+            print(Person('John').json())
+
+            '''
+            {
+                "name": "John"
+            }
+            '''
+            ```
+        """
+
+        return json.dumps(self.__dict__, indent=4, default=str)
+
+    def dumps(self):
+        """
+            Returns a binary serialization of the class.
+
+            Example:
+            ```
+            class Person(i6.Base):
+                def __init__(self, name):
+                    self.name = name
+
+            with open('person.pkl', 'wb') as f:
+                f.write(Person('John').dumps())
+            ```
+        """
+
+        return pickle.dumps(self)
+
+    def loads(self, data):
+        """
+            Deserialize a valid binary serialization of the class.
+
+            Example:
+            ```
+            class Person(i6.Base):
+                def __init__(self, name):
+                    self.name = name
+
+            person = Person('Doe')
+
+            with open('person.pkl', 'rb') as f:
+                person.loads(f.read())
+
+            print(person)
+            '''
+            {'name': 'John'}
+            '''
+            ```
+        """
+
+        self.__dict__ = pickle.loads(data).__dict__
