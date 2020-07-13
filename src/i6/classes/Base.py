@@ -50,7 +50,30 @@ class Base():
 
         return json.dumps(self.__dict__, indent=4, default=str)
 
-    def dumps(self):
+    def load_json(self, data):
+        """
+            Load data from json.
+
+            Example:
+            ```
+            class Person(i6.Base):
+                def __init__(self, name):
+                    self.name = name
+
+            p1 = Person('John1')
+            p2 = Person('John2')
+
+            p2.load_json(p1.json())
+            print(p2)
+            '''
+            {'name': 'John1'}
+            '''
+            ```
+        """
+
+        self.__dict__ = json.loads(data)
+
+    def serialize(self):
         """
             Returns a binary serialization of the class.
 
@@ -61,13 +84,13 @@ class Base():
                     self.name = name
 
             with open('person.pkl', 'wb') as f:
-                f.write(Person('John').dumps())
+                f.write(Person('John').serialize())
             ```
         """
 
         return pickle.dumps(self)
 
-    def loads(self, data):
+    def deserialize(self, data):
         """
             Deserialize a valid binary serialization of the class.
 
@@ -80,7 +103,7 @@ class Base():
             person = Person('Doe')
 
             with open('person.pkl', 'rb') as f:
-                person.loads(f.read())
+                person.deserialize(f.read())
 
             print(person)
             '''

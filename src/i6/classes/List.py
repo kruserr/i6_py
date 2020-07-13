@@ -59,7 +59,35 @@ class List(list):
             temp_items.append(item.__dict__)
         return json.dumps(temp_items, indent=4, default=str)
 
-    def dumps(self):
+    def load_json(self, data):
+        """
+            Load data from json.
+
+            Example:
+            ```
+            class Person(i6.Base):
+                def __init__(self, name):
+                    self.name = name
+
+            p1 = Person('John1')
+            p2 = Person('John2')
+
+            persons = i6.List(p1)
+            persons2 = i6.List(p1, p2)
+
+            persons.load_json(persons2.json())
+            print(persons)
+            '''
+            [{'name': 'John1'}, {'name': 'John2'}]
+            '''
+            ```
+        """
+
+        self.clear()
+        for item in json.loads(data):
+            self.append(item)
+
+    def serialize(self):
         """
             Returns a binary serialization of the list.
 
@@ -74,13 +102,13 @@ class List(list):
             persons = i6.List(p1, p2)
 
             with open('persons.pkl', 'wb') as f:
-                f.write(persons.dumps())
+                f.write(persons.serialize())
             ```
         """
 
         return pickle.dumps(self)
 
-    def loads(self, data):
+    def deserialize(self, data):
         """
             Deserialize a valid binary serialization of the list.
 
@@ -93,7 +121,7 @@ class List(list):
             persons = i6.List()
 
             with open('persons.pkl', 'rb') as f:
-                persons.loads(f.read())
+                persons.deserialize(f.read())
 
             print(persons)
             '''

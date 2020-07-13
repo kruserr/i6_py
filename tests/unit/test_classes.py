@@ -32,5 +32,15 @@ print(persons2.json())
 
 print(p1)
 
-persons2.loads(persons.dumps())
+persons2.deserialize(persons.serialize())
 print(persons2)
+
+print(p2)
+p2.load_json(p1.json())
+print(p2)
+
+persons3 = i6.List(p2)
+
+print(persons3)
+persons3.load_json(persons.json())
+print(persons3)
