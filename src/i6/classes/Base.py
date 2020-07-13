@@ -28,6 +28,25 @@ class Base():
     def __ne__(self, other):
         return not self.__eq__(other)
 
+    def get_dict(self):
+        """
+            Get __dict__
+
+            Example:
+            ```
+            class Person(i6.Base):
+                def __init__(self, name):
+                    self.name = name
+            
+            print(Person('John').get_dict())
+            '''
+            {'name': 'John'}
+            '''
+            ```
+        """
+
+        return self.__dict__
+
     def json(self):
         """
             Returns a valid json representation of the class.

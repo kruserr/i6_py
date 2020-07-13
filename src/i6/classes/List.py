@@ -26,6 +26,25 @@ class List(list):
     def __init__(self, *argv):
         super().__init__(argv)
 
+    def get_dict(self):
+        """
+            Get __dict__
+
+            Example:
+            ```
+            class Person(i6.Base):
+                def __init__(self, name):
+                    self.name = name
+            
+            print(i6.List(Person('John').get_dict()))
+            '''
+            [{'name': 'John'}]
+            '''
+            ```
+        """
+
+        return self
+
     def json(self):
         """
             Returns a valid json representation of the list.
@@ -56,7 +75,10 @@ class List(list):
         
         temp_items = []
         for item in self:
-            temp_items.append(item.__dict__)
+            try:
+                temp_items.append(item.get_dict())
+            except AttributeError:
+                temp_items.append(item)
         return json.dumps(temp_items, indent=4, default=str)
 
     def load_json(self, data):

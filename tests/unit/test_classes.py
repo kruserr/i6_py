@@ -44,3 +44,6 @@ persons3 = i6.List(p2)
 print(persons3)
 persons3.load_json(persons.json())
 print(persons3)
+
+persons4 = i6.List()
+print(persons4.get_dict())
