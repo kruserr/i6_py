@@ -66,7 +66,7 @@ class Base():
 
         return self.__dict__
 
-    def csv(self, delim = ', ', header = True) -> str:
+    def csv(self, delim = ', ', header = True, newline = False) -> str:
         """
             Returns a valid csv representation of the class.
 
@@ -84,8 +84,8 @@ class Base():
             ```
         """
 
-        def strip_delim(data, newline = '\n'):
-            return f"{data[:-len(delim)]}{newline}"
+        def strip_delim(data, newline_char = '\n'):
+            return f"{data[:-len(delim)]}{newline_char}"
 
         result = ''
 
@@ -97,6 +97,9 @@ class Base():
         for key, value in self.__dict__.items():
             result += f"{value}{delim}"
         result = strip_delim(result, '')
+
+        if newline:
+            result += '\n'
 
         return result
 

@@ -53,7 +53,7 @@ class List(typing.List[Base]):
 
         return self
 
-    def csv(self, delim = ', ', header = True) -> str:
+    def csv(self, delim = ', ', header = True, newline = False) -> str:
         """
             Returns a valid csv representation of the list.
 
@@ -94,6 +94,9 @@ class List(typing.List[Base]):
                 result += f"{value}{delim}"
             result = strip_delim(result)
         result = result[:-1]
+
+        if newline:
+            result += '\n'
 
         return result
 
