@@ -47,3 +47,32 @@ print(persons3)
 
 persons4 = i6.List()
 print(persons4.get_dict())
+
+print(p1.csv())
+p1.load_csv(p2.csv())
+print(p1.csv(header=False))
+
+print(persons)
+
+try:
+    persons.append('lol')
+except TypeError as e:
+    print(e)
+
+try:
+    print(p1 == persons)
+except TypeError as e:
+    print(e)
+
+base = i6.Base()
+base.set_dict({'name': 'John'})
+print(base)
+
+persons3 = i6.List()
+persons4 = i6.List(p1)
+
+persons3.load_csv(persons2.csv())
+print(persons3)
+
+persons4.load_json(persons3.json())
+print(persons4)
