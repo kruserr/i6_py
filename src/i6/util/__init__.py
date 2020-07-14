@@ -1,5 +1,6 @@
 import os
 import time
+import typing
 import datetime
 
 
@@ -14,6 +15,27 @@ class util():
         print(i6.util.now())
         ```
     """
+
+    def type_check(data, data_type, message = None):
+        """
+            Perform manual type checking.
+
+            Example:
+            ```
+            i = 1
+            i = '1'
+            i6.util.type_check(i, int) # Throws error
+            ```
+        """
+
+        if type(data_type).__name__ != 'type':
+            data_type = type(data_type)
+        
+        if message is None:
+            message = f"Invalid type, should be of type {data_type.__name__}."
+        
+        if not isinstance(data, data_type):
+            raise TypeError(message)
 
     def check_val(obj, value, default):
         """
