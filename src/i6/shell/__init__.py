@@ -20,6 +20,7 @@ class shell():
         print(i6.shell.cat('test.txt'))
         i6.shell.echo('test.txt', '1234', append=False)
         i6.shell.cp('src.txt', 'dst.txt')
+        i6.shell.mv('src.txt', 'dst.txt')
         print(i6.shell.exists('dir'))
         print(i6.shell.which('ping'))
         print(i6.shell.user())
@@ -167,6 +168,18 @@ class shell():
             shutil.copy2(src, dst)
         elif os.path.isdir(src):
             shutil.copytree(src, dst)
+
+    def mv(src, dst):
+        """
+            Move a file or folder from src to dst.
+
+            Example:
+            ```
+            i6.shell.mv('src.txt', 'dst.txt')
+            ```
+        """
+
+        shutil.move(src, dst)
 
     def exec(command):
         """
