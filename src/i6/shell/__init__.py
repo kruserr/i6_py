@@ -122,19 +122,28 @@ class shell():
         elif os.path.isdir(path):
             shutil.rmtree(path)
 
-    def cat(path):
+    def cat(path, binary = False):
         """
-            Read a file.
+            Read a file and return as string or bytes.
 
             Example:
             ```
             print(i6.shell.cat('test.txt'))
             ```
         """
+        
+        if binary:
+            file_mode = 'rb'
+            return_var = b''
+        else:
+            file_mode = 'r'
+            return_var = ''
 
         if shell.exists(path):
-            with open(path, 'r') as f:
+            with open(path, file_mode) as f:
                 return f.read()
+        
+        return return_var
 
     def echo(path, text, append = False):
         """
@@ -150,9 +159,10 @@ class shell():
         if append:
             file_mode = 'a'
 
-        if shell.exists(path):
-            with open(path, file_mode) as f:
-                f.write(text)
+        shell.touch(path)
+
+        with open(path, file_mode) as f:
+            f.write(text)
 
     def cp(src, dst):
         """
