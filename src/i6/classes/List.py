@@ -125,6 +125,9 @@ class List(typing.List[Base]):
         """
 
         rows = data.splitlines()
+        if len(rows) == 0:
+            return
+
         header = rows[0].split(delim)
 
         temp_list = []
