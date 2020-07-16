@@ -1,5 +1,8 @@
+import i6
+
 import os
 import shutil
+import difflib
 import getpass
 import platform
 import subprocess
@@ -22,6 +25,7 @@ class shell():
         i6.shell.cp('src.txt', 'dst.txt')
         i6.shell.mv('src.txt', 'dst.txt')
         print(i6.shell.exists('dir'))
+        print(i6.shell.diff('file1.txt', 'file2.txt'))
         print(i6.shell.which('ping'))
         print(i6.shell.user())
         print(i6.shell.uname())
@@ -217,6 +221,25 @@ class shell():
         """
 
         return (os.path.isdir(path)) or (os.path.isfile(path))
+
+    def diff(file1: str, file2: str):
+        """
+            Returns diff between file1 and file2 as string.
+
+            Example:
+            ```
+            print(i6.shell.diff('file1.txt', 'file2.txt'))
+            ```
+        """
+
+        file1_content = shell.cat(file1).split('\n')
+        file2_content = shell.cat(file2).split('\n')
+
+        diff = '\n'.join(difflib.Differ().compare(file1_content, file2_content))
+        if len(diff.strip()) == 0:
+            return ''
+
+        return f"{file1}\n{file2}\n\n\n{diff}"
 
     def which(name):
         """
