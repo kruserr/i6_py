@@ -1,5 +1,3 @@
-import i6
-
 import os
 import shutil
 import difflib
